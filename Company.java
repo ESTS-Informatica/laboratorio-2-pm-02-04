@@ -149,10 +149,9 @@ public class Company {
      */
     public int calculateSellsOfTheYear(int year) {
         int numberOfSales = 0;
-        int currentYear = LocalDate.now().getYear();
 
         for (Sell sell : sells) {
-            if (sell.getDate().getYear() == currentYear) {
+            if (sell.getDate().getYear() == year) {
                 numberOfSales++;
             }
         }
@@ -169,7 +168,7 @@ public class Company {
     public String findSellerOfTheYear(int year) {
         String sellerName = "";
         int bestSales = 0;
-        int currentYear = LocalDate.now().getYear();
+        int currentYear = year;
         
         for (User u : this.sellers){
             int currentSellerSells = 0;
