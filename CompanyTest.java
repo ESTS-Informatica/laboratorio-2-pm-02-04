@@ -6,6 +6,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.Before;
 import static org.junit.Assert.assertNotNull;
+import java.time.LocalDate;
 import java.util.List;
 
 /**
@@ -65,6 +66,50 @@ public class CompanyTest
     }
     
     @Test
+    public void testFindSellerOfTheYear() {
+        // Crie uma instância da classe Company
+        Company company = new Company();
+        
+        // Crie algumas vendas fictícias para o ano atual
+        LocalDate currentDate = LocalDate.now();
+        User client = new User("Cliente", "123456789", "cliente@example.com");
+        User seller = new User("Vendedor", "987654321", "vendedor@example.com");
+        Property property = new Property("Casa", 100000.0);
+        
+        // Adicione as vendas à empresa
+        company.createSell(client, seller, property);
+        
+        // Encontre o vendedor do ano atual
+        String sellerOfTheYear = company.findSellerOfTheYear(currentDate.getYear());
+        
+        // Verifique se o vendedor retornado não é nulo
+        assertNotNull(sellerOfTheYear);
+        
+        // Verifique se o vendedor retornado é o vendedor correto
+        assertEquals(seller.getName(), sellerOfTheYear);
+    }
+    
+    
+    
+    @Test
+    public void testCreateSell() {
+        company.registerClient(client1);
+        company.registerClient(client2);
+        company.registerSeller(seller1);
+        company.registerSeller(seller2);
+        company.registerProperty(property1);
+        company.registerProperty(property2);
+        
+        company.createSell(client1, seller1, property1);
+        company.createSell(client2, seller2, property2);
+        
+        // Verifica se a venda foi criada corretamente
+        assertTrue(company.getSells().size() == 2);
+        assertTrue(company.getSells().contains(new Sell(client1, seller1, property1)));
+        assertTrue(company.getSells().contains(new Sell(client2, seller2, property2)));
+    }
+    
+    @Test
     public void testRegisterClient() {
         User client = new User("José Manuel", "911111111", "zemanel@yahoo.com");
         company.registerClient(client);
@@ -100,6 +145,31 @@ public class CompanyTest
         
         // Verificar se o cliente registrado é o mesmo que tentamos registrar duas vezes
         assertTrue(company.getClients().contains(client));
+    }
+    
+    @Test
+    public void testCalculateSellsOfTheYear() {
+        // Crie uma instância da classe Company
+        Company company = new Company();
+        
+        // Crie algumas vendas fictícias para o ano atual
+        LocalDate currentDate = LocalDate.now();
+        User client = new User("Cliente", "123456789", "cliente@example.com");
+        User seller = new User("Vendedor", "987654321", "vendedor@example.com");
+        Property property = new Property("Casa", 100000.0);
+        
+        // Adicione as vendas à empresa
+        company.createSell(client, seller, property);
+        
+        // Obtenha as vendas do ano atual
+        int sellsOfYear = company.calculateSellsOfTheYear(Integer.valueOf(currentDate.getYear()));
+        
+        // Verifique se a lista de vendas não está vazia
+        assertFalse(sellsOfYear==0);
+        
+        // Verifique se as vendas estão corretas
+        assertEquals(1, sellsOfYear);
+
     }
     
     @Test

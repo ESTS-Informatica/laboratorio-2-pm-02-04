@@ -26,6 +26,8 @@ public class Company {
     public Company() {
         this.clients = new ArrayList<>();
         this.sellers = new ArrayList<>();
+        this.properties = new ArrayList<>();
+        this.sells = new ArrayList<>();
     }
 
     /**
