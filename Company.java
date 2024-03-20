@@ -24,7 +24,8 @@ public class Company {
      * Constructor of class Company
      */
     public Company() {
-
+        this.clients = new ArrayList<>();
+        this.sellers = new ArrayList<>();
     }
 
     /**

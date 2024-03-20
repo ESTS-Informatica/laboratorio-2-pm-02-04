@@ -20,6 +20,10 @@ public class Property {
      * @param description The property description.
      * @param price The property price.
      */
+    
+    public Property() {
+        this.id = NUMBER_OF_PROPERTIES++;
+    }
     public Property(String description, double price) {
         this.price = price;
         this.description = description;
@@ -67,6 +71,7 @@ public class Property {
 
     @Override
     public String toString() {
-        return this.id + " " + this.NUMBER_OF_PROPERTIES + " " + this.description + " " + this.price;
+        return "Descrição: " + this.description + "\nPreço: " + this.price + " Euros";
     }
+
 }

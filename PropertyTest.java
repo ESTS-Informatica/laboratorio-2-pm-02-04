@@ -39,6 +39,18 @@ public class PropertyTest
         assertEquals(150000.0, property1.getPrice(), 0.001);
 
     }
+    
+    @Test
+    public void testToString() {
+        Property property = new Property();
+        property.setDescription("Casa espaçosa");
+        property.setPrice(100000); // Supondo que o preço seja 100000 euros
+
+        String expected = "Descrição: Casa espaçosa\nPreço: 100000 Euros";
+        String actual = property.toString();
+
+        assertEquals(expected, actual.replace(".0", "")); // Remover ".0" para lidar com a formatação do preço
+    }
 
 
     /**
