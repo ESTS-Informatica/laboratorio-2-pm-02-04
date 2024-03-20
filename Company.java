@@ -33,7 +33,7 @@ public class Company {
      * @return This company clients.
      */
     public List<User> getClients() {
-        return null;         // dummy implementation
+        return this.clients;         // dummy implementation
     }
 
     /**
@@ -42,7 +42,7 @@ public class Company {
      * @return This company sellers.
      */
     public List<User> getSellers() {
-        return null;         // dummy implementation
+        return this.sellers;         // dummy implementation
     }
 
     /**
@@ -51,7 +51,7 @@ public class Company {
      * @return This company's properties.
      */
     public List<Property> getProperties() {
-        return null;         // dummy implementation
+        return this.properties;         // dummy implementation
     }
 
     /**
@@ -60,7 +60,7 @@ public class Company {
      * @return This company sells.
      */
     public List<Sell> getSells() {
-        return null;         // dummy implementation
+        return this.sells;         // dummy implementation
     }
 
     /**
@@ -70,7 +70,12 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerClient(User client) {
-        return true;         // dummy implementation
+        if (client != null){
+            clients.add(client);   
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -80,7 +85,12 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSeller(User seller) {
-        return true;         // dummy implementation
+        if (seller != null){
+            sellers.add(seller);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -90,7 +100,12 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerProperty(Property property) {
-        return true;         // dummy implementation
+        if (property != null){
+            properties.add(property);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -100,7 +115,12 @@ public class Company {
      * @return true If the registration succeeds, false otherwise.
      */
     public boolean registerSell(Sell sell) {
-        return true;         // dummy implementation
+        if (sell != null){
+            sells.add(sell);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -112,7 +132,13 @@ public class Company {
      * @return true If the request succeeds, false otherwise.
      */
     public boolean createSell(User client, User seller, Property property) {
-        return true;         // dummy implementation
+        if (client != null && seller != null && property != null) {
+            Sell newSell = new Sell(client, seller, property);
+            sells.add(newSell);
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -122,7 +148,16 @@ public class Company {
      * @return The total number of sells in the year.
      */
     public int calculateSellsOfTheYear(int year) {
-        return 0;         // dummy implementation
+        int numberOfSales = 0;
+        int currentYear = LocalDate.now().getYear();
+
+        for (Sell sell : sells) {
+            if (sell.getDate().getYear() == currentYear) {
+                numberOfSales++;
+            }
+        }
+
+        return numberOfSales;         // dummy implementation
     }
 
     /**
@@ -132,7 +167,27 @@ public class Company {
      * @return The name of the seller of the year.
      */
     public String findSellerOfTheYear(int year) {
-        return null;         // dummy implementation
+        String sellerName = "";
+        int bestSales = 0;
+        int currentYear = LocalDate.now().getYear();
+        
+        for (User u : this.sellers){
+            int currentSellerSells = 0;
+            for(Sell s : this.sells){
+                if(s.getDate().getYear() == currentYear){
+                    if(s.getSeller().getId().equals(u.getId())){
+                        currentSellerSells++;
+                    }
+                }
+            }
+            if(currentSellerSells > bestSales){
+                bestSales = currentSellerSells;
+                sellerName = u.getName();
+            }
+        }
+        
+        
+        return sellerName;         // dummy implementation
     }
 
 }
